@@ -32,6 +32,11 @@ void init_t6030_sawtooth(int rev);
 void init_t6030_everest(int rev);
 void init_t6031_sawtooth(int rev);
 void init_t6031_everest(int rev);
+/* FIXME: M4Pro-guess — forward decls for t6040/t6041 cores. */
+void init_t6040_sawtooth(int rev);
+void init_t6040_everest(int rev);
+void init_t6041_sawtooth(int rev);
+void init_t6041_everest(int rev);
 
 struct midr_part_info {
     int part;
@@ -153,6 +158,18 @@ const struct midr_part_info midr_parts[] = {
     {MIDR_PART_T8122_SAWTOOTH, "M3 Sawtooth", init_t8122_sawtooth, &features_m3},
     {MIDR_PART_T8132_DONAN_ECORE, "M4 Donan (E core)", NULL, &features_m4},
     {MIDR_PART_T8132_DONAN_PCORE, "M4 Donan (P core)", NULL, &features_m4},
+    /*
+     * FIXME: M4Pro-guess — part IDs extrapolated; init routines are t6030 clones.
+     * Feature class reused from M3 (features_m3). When the true core is
+     * identified we may need a features_m4p block with different cache/TLB
+     * flags. For now we bet on 'close enough to boot, wrong enough to crash
+     * under real load', which is exactly the barebone milestone the project
+     * is aiming at.
+     */
+    {MIDR_PART_T6040_EVEREST, "M4 Pro P-core", init_t6040_everest, &features_m3},
+    {MIDR_PART_T6040_SAWTOOTH, "M4 Pro E-core", init_t6040_sawtooth, &features_m3},
+    {MIDR_PART_T6041_EVEREST, "M4 Max P-core", init_t6041_everest, &features_m3},
+    {MIDR_PART_T6041_SAWTOOTH, "M4 Max E-core", init_t6041_sawtooth, &features_m3},
 };
 
 const struct midr_part_features features_unknown = {

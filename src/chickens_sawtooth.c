@@ -42,3 +42,27 @@ void init_t6031_sawtooth(int rev)
 
     reg_mask(SYS_IMP_APL_HID5, HID5_BLZ_UNK_19_18_MASK, HID5_BLZ_UNK19);
 }
+
+/*
+ * FIXME: M4Pro-guess — E-core init for t6040, cloned verbatim from t6030.
+ * The throttle-limit value in particular is almost certainly different on a
+ * new SoC generation; Apple tends to rebalance E-cluster DVFS aggressively.
+ */
+void init_t6040_sawtooth(int rev)
+{
+    UNUSED(rev);
+
+    init_common_sawtooth();
+
+    reg_mask(SYS_IMP_APL_EHID9, EHID9_DEV_2_THROTTLE_LIMIT_MASK, EHID9_DEV_2_THROTTLE_LIMIT(62));
+    reg_set(SYS_IMP_APL_EHID9, EHID9_DEV_2_THROTTLE_ENABLE);
+    reg_set(SYS_IMP_APL_EHID18, EHID18_BLZ_UNK34);
+
+    reg_mask(SYS_IMP_APL_HID5, HID5_BLZ_UNK_19_18_MASK, HID5_BLZ_UNK19);
+}
+
+/* FIXME: M4Pro-guess — M4 Max E-cores; currently identical to t6040. */
+void init_t6041_sawtooth(int rev)
+{
+    init_t6040_sawtooth(rev);
+}

@@ -45,6 +45,17 @@
 #define MIDR_PART_T6031_EVEREST     0x49
 #define MIDR_PART_T8132_DONAN_ECORE 0x52
 #define MIDR_PART_T8132_DONAN_PCORE 0x53
+/*
+ * FIXME: M4Pro-guess. The 0x04-per-SKU step ran 0x44/0x45 (t6030) -> 0x48/0x49 (t6031).
+ * Extrapolating one more step lands at 0x54/0x55 for t6040. These MUST be replaced with
+ * the true values read from MIDR_EL1 the first time an M4 Pro core runs our code.
+ * Apple's core codename for M4 Pro/Max is not yet public; we reuse Sawtooth/Everest
+ * here purely because that's what m1n1 uses for the T6030 siblings.
+ */
+#define MIDR_PART_T6040_SAWTOOTH    0x54  /* FIXME: M4Pro-guess */
+#define MIDR_PART_T6040_EVEREST     0x55  /* FIXME: M4Pro-guess */
+#define MIDR_PART_T6041_SAWTOOTH    0x58  /* FIXME: M4Pro-guess (M4 Max) */
+#define MIDR_PART_T6041_EVEREST     0x59  /* FIXME: M4Pro-guess (M4 Max) */
 
 #define MIDR_REV_LOW  GENMASK(3, 0)
 #define MIDR_PART     GENMASK(15, 4)

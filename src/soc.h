@@ -29,6 +29,9 @@
 #define T6030 0x6030
 #define T6031 0x6031
 #define T6034 0x6034
+/* FIXME: M4Pro-guess — t6040 = M4 Pro, t6041 = M4 Max. Numeric IDs match Apple Wiki; unverified in-tree. */
+#define T6040 0x6040
+#define T6041 0x6041
 
 #ifdef TARGET
 
@@ -49,6 +52,13 @@
 #define EARLY_UART_BASE 0x22e600000
 #elif TARGET == T6030
 #define EARLY_UART_BASE 0x289200000
+/*
+ * FIXME: M4Pro-guess — UART base for t6040/t6041 is not yet known.
+ * Inherit t6030's value as a first-attempt guess. The very first thing an ADT
+ * dump from a live M4 Pro must confirm is the correct UART base; replace below.
+ */
+#elif TARGET == T6040 || TARGET == T6041
+#define EARLY_UART_BASE 0x289200000  /* FIXME: M4Pro-guess, verify against ADT */
 #elif TARGET == T7000 || TARGET == T7001 || TARGET == S8000 || TARGET == S8001 ||                  \
     TARGET == S8003 || TARGET == T8010 || TARGET == T8011
 #if TARGET == T7000 && defined(TARGET_BOARD) && TARGET_BOARD == 0x34 // Apple TV HD
